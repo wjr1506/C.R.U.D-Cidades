@@ -1,0 +1,21 @@
+import { Router } from "express";
+import {StatusCodes} from "http-status-codes";
+
+const router = Router();
+
+router.get('/', (req, res) => {
+  return res.send('hello world');
+});
+
+router.post('/:paramsTeste', (req, res) => {
+  console.log(req.body);
+  console.log(req.params.paramsTeste);
+  console.log(req.query); //url?teste=testado
+  console.log(req.cookies); //??
+
+  return res.status(StatusCodes.ACCEPTED).json({'StatusCode':200});
+  // return res.json({'StatusCode':200});
+});
+
+
+export { router };
