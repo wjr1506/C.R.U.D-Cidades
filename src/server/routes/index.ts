@@ -6,11 +6,12 @@ import { CidadesController } from "./../controllers"; //único export em contrll
 const router = Router();
 
 
+router.get('/cidades', CidadesController.getAllValidation, CidadesController.getAll);
+router.get('/cidades/:id', CidadesController.getByIdValidation, CidadesController.getById);
+router.post('/cidades', CidadesController.createValidation, CidadesController.create);
+router.put('/cidades/:id', CidadesController.updateByIdValidation, CidadesController.updateById);
+router.delete('/cidades/:id', CidadesController.deleteByIdValidation, CidadesController.deleteById);
 
-
-
-// router.get('/cidades',CidadesController.getAll);
-router.post('/cidades', CidadesController.createFilterValidation, CidadesController.createCidadeValidation, CidadesController.create);
 
 
 router.get('/', (req, res) => {
