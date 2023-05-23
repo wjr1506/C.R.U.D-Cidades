@@ -1,10 +1,10 @@
 import { RequestHandler } from "express"
 import { StatusCodes } from "http-status-codes";
-import { Schema, ValidationError } from "yup";
+import { AnyObject, Maybe, ObjectSchema, ValidationError } from "yup";
 
 type Tproperty = 'body' | 'headers' | 'params' | 'query';//tipos de chave de schema
-type TGetSchema = <T>(schema: Schema<T>) => Schema<T> //recebe um schema genérico e retorna um schema genérico
-type TAllSchemas = Record<Tproperty, Schema<any>>//lista dos schemas com o typo não requerido
+type TGetSchema = <T extends Maybe<AnyObject>>(schema: ObjectSchema<T>) => ObjectSchema<T> //recebe um schema genérico e retorna um schema genérico
+type TAllSchemas = Record<Tproperty, ObjectSchema<any>>//lista dos schemas com o typo não requerido
 type TGetAllSchemas = (getSchema: TGetSchema) => Partial<TAllSchemas>//recebe um schema genérico de TGetSchema e retorna uma lista de schema com o type não requerido
 type Tvalidation = (getAllSchema: TGetAllSchemas) => RequestHandler; //recebe uma lista de TGetAllSchemas e retorna RequestHandler
 
@@ -31,13 +31,13 @@ export const validation: Tvalidation = (getAllSchemas) => async (req, res, next)
         if (!e.path) return;
         validateErrors[e.path] = e.message
       });
-      errorsResult[key] = validateErrors; //storage erros
+      errorsResult[key] = validateErrors; //storage errors
     };
   })
 
   if (Object.entries(errorsResult).length === 0) {
     return next();
   } else {
-    return res.status(StatusCodes.BAD_REQUEST).json({ erros: { dafault: errorsResult, } });
+    return res.status(StatusCodes.BAD_REQUEST).json({ errors: { dafault: errorsResult, } });
   }
 }

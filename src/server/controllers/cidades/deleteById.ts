@@ -20,15 +20,17 @@ export const deleteByIdValidation = validation((getSchema) => ({
       id: yup.number().integer().required().moreThan(0),
     }),
   ),
-  body:getSchema<IBodyProps>(
-    yup.object().shape({
-      nome: yup.string().required().min(3),
-    }),
-  ),
+  // body:getSchema<IBodyProps>(
+  //   yup.object().shape({
+  //     nome: yup.string().required().min(3),
+  //   }),
+  // ),
 
 }));
 
 
-export const deleteById: RequestHandler = async (req: Request<{}, {}, {}, IParamsProps>, res: Response) => {
-  res.send('Cidades!')
+export const deleteById: RequestHandler = async (req: Request<IParamsProps>, res: Response) => {
+
+  if(Number(req.params.id) === 9999) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({errors:{default:'registro não encontrado'}})
+  res.status(StatusCodes.NO_CONTENT).send()
 }

@@ -28,5 +28,9 @@ export const getAllValidation = validation((getSchema) => ({
 
 
 export const getAll: RequestHandler = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
-  res.send('Cidades!')
+
+  res.setHeader('access-control-expose-headers', 'x-total-count');
+  res.setHeader('x-total-count', 1);
+
+  res.status(StatusCodes.OK).json([{id:1,nome:'Araguaína'}])
 }

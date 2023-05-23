@@ -24,6 +24,7 @@ export const getByIdValidation = validation((getSchema) => ({
 
 
 export const getById: RequestHandler = async (req: Request<IParamsProps>, res: Response) => {
-  console.log(req.params)
-  res.send('Cidades!')
+
+  if (Number(req.params.id) === 9999) return res.status(StatusCodes.BAD_REQUEST).json({ errors: { default: 'registro não encontrado' } })
+  res.status(StatusCodes.OK).json({ id: 1, nome: 'Araguaína' })
 }
