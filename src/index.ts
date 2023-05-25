@@ -51,3 +51,4 @@ if (process.env.IS_LOCALHOST !== 'true') {
 //jest ts-jest @types/jest to test (yarn jest --init) => discoment line 37,136,155,174
 //(dev)supertest @type/supertest
 //bcryptjs criptografia de senhas
+//jsonwebtoken geração de jwt
