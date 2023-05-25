@@ -4,6 +4,7 @@ import * as yup from 'yup';
 
 import { validation } from "../../shared/middleware";
 import { ICidade } from "../../database/models";
+import { CidadesProvider } from "../../database/providers";
 
 interface IBodyProps extends Omit<ICidade, 'id'> { }
 
@@ -14,7 +15,7 @@ export const createValidation = validation((getSchema) => ({
   //object
   body: getSchema<IBodyProps>(
     yup.object().shape({
-      nome: yup.string().required().min(3),
+      nome: yup.string().required().min(3).max(150),
     }),
   ),
 
@@ -23,5 +24,11 @@ export const createValidation = validation((getSchema) => ({
 
 
 export const create: RequestHandler = async (req: Request<{}, {}, ICidade>, res: Response) => {
-  res.status(StatusCodes.CREATED).json(1)
+  const result = await CidadesProvider.create(req.body);
+  
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } })
+  }
+
+  res.status(StatusCodes.CREATED).json(result);
 }
