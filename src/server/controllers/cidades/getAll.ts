@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import * as yup from 'yup';
 
 import { validation } from "../../shared/middleware";
-import { CidadesProvider } from "../../database/providers";
+import { CidadesProvider } from "../../database/providers/cidades";
 
 interface IQueryProps {
   id?: number;
@@ -11,8 +11,6 @@ interface IQueryProps {
   limit?: number;
   filter?: string;
 }
-
-
 
 //execute middleware validation
 export const getAllValidation = validation((getSchema) => ({
