@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { StatusCodes } from "http-status-codes";
 
-import { CidadesController,PessoasController } from "./../controllers"; //único export em contrller/index para não gerar várias linhas de código
+import { CidadesController, PessoasController, UsuariosController } from "./../controllers"; //único export em contrller/index para não gerar várias linhas de código
 
 const router = Router();
 
@@ -18,6 +18,8 @@ router.post('/pessoas', PessoasController.createValidation, PessoasController.cr
 router.put('/pessoas/:id', PessoasController.updateByIdValidation, PessoasController.updateById);
 router.delete('/pessoas/:id', PessoasController.deleteByIdValidation, PessoasController.deleteById);
 
+router.post('/entrar', UsuariosController.singInValidation, UsuariosController.singIn);
+router.post('/cadastrar', UsuariosController.singUpValidation, UsuariosController.singUp);
 
 
 router.get('/', (req, res) => {
