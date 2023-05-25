@@ -1,11 +1,7 @@
 import { Knex } from './server/database/knex';
 import { server } from './server/server';
 
-if (process.env.IS_LOCALHOST !== 'true') {
-  Knex.migrate.latest().then(() =>
-    startServer()
-  ).catch(console.log);
-}
+
 
 const startServer = async () => {
   server.listen(process.env.PORT || 5000, () =>
@@ -14,7 +10,18 @@ const startServer = async () => {
 };
 
 
+if (process.env.IS_LOCALHOST !== 'true') {
+  Knex.migrate.latest().then(() =>
 
+    Knex.seed.run().then(() =>
+      startServer()
+    ).catch(console.log)
+
+
+  ).catch(console.log);
+} else {
+  startServer();
+}
 
 //install typescript
 //install ts-node-dev => help convert TS files to JS in development mode
