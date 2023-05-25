@@ -10,18 +10,17 @@ export async function up(knex: Knex) {
       .index();
     table
       .string('nome', 150)
-      .unique()
       .notNullable()
       .checkLength('>', 3)
     table
       .string('email', 150)
       .notNullable()
       .unique()
-      .checkLength('>', 6)
+      .checkLength('>=', 6)
     table
       .bigInteger('senha')
       .notNullable()
-      .checkLength('>', 6)
+      .checkLength('>=', 6)
 
 
     table.comment('tabela para armazenar usuários')
