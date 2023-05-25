@@ -1,7 +1,6 @@
-import { number, object } from "yup";
-import { ETableNames } from "../ETableName";
-import { Knex } from "../knex";
-import { ICidade } from "../models";
+import { ETableNames } from "../../ETableName";
+import { Knex } from "../../knex";
+import { ICidade } from "../../models";
 
 export const getAll = async (page: number, limit: number, filter: string, id = 0): Promise<ICidade[] | Error> => {
 
