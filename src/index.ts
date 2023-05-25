@@ -1,5 +1,18 @@
+import { Knex } from './server/database/knex';
 import { server } from './server/server';
-server.listen(process.env.PORT || 5000, () => console.log(`Server Running in https://localhost:${process.env.PORT || 5000}`));
+
+if (process.env.IS_LOCALHOST !== 'true') {
+  Knex.migrate.latest().then(() =>
+    startServer()
+  ).catch(console.log);
+}
+
+const startServer = async () => {
+  server.listen(process.env.PORT || 5000, () =>
+    console.log(`Server Running in https://localhost:${process.env.PORT || 5000}`)
+  );
+};
+
 
 
 
@@ -18,6 +31,7 @@ server.listen(process.env.PORT || 5000, () => console.log(`Server Running in htt
 //folders
 //controller => funções que retornam respostas para o usuário ou manipulam dados no banco de dados
 //database => config do banco de dados
+  //providers =>
 //shared => algo que pode ser compartilhado com o projeto inteiro
   //middleware => função que pode interceptar chamadas dos controllers para coleta de dados chave
   //exemplo: (Autenticação JWT) usuário fez uma chamada para listar produtos, antes de consultar os produtos, o middleware checa se o token é válido.
