@@ -29,10 +29,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/:paramsTeste', (req, res) => {
-  console.log(req.body);
-  console.log(req.params.paramsTeste);
-  console.log(req.query); //url?teste=testado
-  console.log(req.cookies); //??
 
   return res.status(StatusCodes.ACCEPTED).json({ 'StatusCode': 200 });
   // return res.json({'StatusCode':200});

@@ -7,7 +7,6 @@ export const ensureAuth: RequestHandler = async (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    console.log(1)
 
     return res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
@@ -19,7 +18,6 @@ export const ensureAuth: RequestHandler = async (req, res, next) => {
   const [type, token] = authorization.split(' ')
 
   if (type !== 'Bearer') {
-    console.log(1)
 
     return res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
