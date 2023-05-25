@@ -5,7 +5,7 @@ import { ETableNames } from "../ETableName";
 export async function up(knex: Knex) {
   return knex.schema.createTable(ETableNames.cidade, table => {
     table.bigIncrements('id').primary().index();
-    table.string('nome', 150).notNullable().index();
+    table.string('nome', 150).notNullable().checkLength('<=', 150).index();
 
     table.comment('tabela para armazenar cidades')
   }).then(() => { console.log(`# Created table ${ETableNames.cidade}`) });
